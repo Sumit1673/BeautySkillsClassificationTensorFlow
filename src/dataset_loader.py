@@ -1,5 +1,5 @@
 import pandas as pd
-import boto3
+# import boto3
 import os
 from sklearn.model_selection import StratifiedKFold as SKF
 from sklearn.model_selection import train_test_split

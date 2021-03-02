@@ -43,13 +43,19 @@ def change_file_name(src_folder:str, dest_path=None,prefix=None, ext='.jpg') -> 
         print(e)
         exit(-1)
 
-def validate_imgs(col='file_path'):
+def validate_imgs_csv(col='file_path'):
     df = pd.read_csv('Dataset/beauty_dataset.csv', usecols=[col])
 
     file_names = list(df[col])
+    validate(file_names)
 
-    for filenames in file_names:
-        print(filenames)
+def validate_imgs_folder(folder_path):
+    file_names = [os.path.join(folder_path, img) for img in os.listdir(folder_path)]
+     validate(file_names)
+     
+def validate(file_name):
+    for i, filenames in enumerate(file_names):
+        print(i, filenames)
         img = tf.io.read_file(filenames)
         image_vec = tf.image.decode_jpeg(img, channels=3)
 
