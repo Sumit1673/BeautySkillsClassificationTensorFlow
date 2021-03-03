@@ -22,7 +22,7 @@ class TrainModel:
 
         # load KFold dataset
         self.dataset = []
-        for kf in range(0, self.config.KFolds):
+        for kf in range(self.config.KFolds):
             self.dataset.append(BeautyDataLoader().create_dataset(fold=kf))
 
         # set loss function
@@ -50,8 +50,8 @@ class TrainModel:
               metrics=[self.macro_f1]
               )
         
-        for k in range(0, 1):
-            best_val_loss = 0.5
+        best_val_loss = 0.5
+        for k in range(1):
             print("Processing Fold {}.... ".format(k))
             filepath='./ckpt/'+self.timestamp + '/'+str(k)+'/'
             
