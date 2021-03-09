@@ -15,15 +15,14 @@ from inferencing import Inferencing
 
 class TrainModel:
 
-    def __init__(self):
+    def __init__(self, multi_label=False):
         
         # load model training params
         self.config,_ = config.get_config()
 
         # load KFold dataset
         self.dataset = []
-        for kf in range(0, self.config.KFolds):
-            self.dataset.append(BeautyDataLoader().create_dataset(fold=kf))
+        self.dataset.append(BeautyDataLoader(multi_label).create_dataset(fold=0))
 
         # set loss function
         self.macro_f1 = PerformanceMetric().macro_F1       

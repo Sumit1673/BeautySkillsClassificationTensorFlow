@@ -36,7 +36,7 @@ class BeautyModel:
             layers.Dense(1024, activation='relu', name='FCN1'),
             layers.Dense(512, activation='relu', name='FCN2'),
             layers.Dense(512, activation='relu', name='FCN3'),
-            layers.Dense(10, activation='sigmoid', name='Output')]
+            layers.Dense(8, activation='sigmoid', name='Output')]
         )
         self.model.summary()
 

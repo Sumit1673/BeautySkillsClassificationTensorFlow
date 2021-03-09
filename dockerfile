@@ -15,6 +15,5 @@ RUN rm -f Miniconda3-latest-Linux-x86_64.sh
 RUN conda create -y -n beauty python=3.8
 
 COPY . src/
-RUN cd src \
-    && source activate beauty \
-    && pip install -r requirements.txt
+RUN /bin/bash -c "source activate beauty"
+RUN /bin/bash -c "pip install -r src/requirements.txt"

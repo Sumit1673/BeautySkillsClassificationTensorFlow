@@ -4,9 +4,9 @@ from tqdm import tqdm
 import config
 from PIL import Image
 
-def create_labels(config, folder, categ="beauty"):
+def create_multi_labels(file_path, folder, categ="beauty"):
 
-    with open(config.dataset_path, 'a') as csv_file:
+    with open(file_path, 'a') as csv_file:
         writer = csv.writer(csv_file, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         skill = os.path.basename(folder)
 
@@ -19,6 +19,19 @@ def create_labels(config, folder, categ="beauty"):
             writer.writerow([file_path, categ, skill])
         
         print("Total Count: {}".format(k))
+
+def create_single_labels(file_path, folder):
+    cwd = os.getcwd()
+    with open(file_path, 'a') as csv_file:
+        writer = csv.writer(csv_file, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        skill = os.path.basename(folder)
+        for k, i in tqdm(enumerate(os.listdir(folder)), desc="Creating labels ...."):
+            file_path = os.path.join(folder, i)
+            writer.writerow([file_path, skill])
+        
+        print("Total Count: {}".format(k))
+
+
 
 
 def convert_img(folder_path, extn="jpg"):

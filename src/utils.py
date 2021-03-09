@@ -51,10 +51,10 @@ def validate_imgs_csv(col='file_path'):
 
 def validate_imgs_folder(folder_path):
     file_names = [os.path.join(folder_path, img) for img in os.listdir(folder_path)]
-     validate(file_names)
+    validate(file_names)
      
 def validate(file_name):
-    for i, filenames in enumerate(file_names):
+    for i, filenames in enumerate(file_name):
         print(i, filenames)
         img = tf.io.read_file(filenames)
         image_vec = tf.image.decode_jpeg(img, channels=3)
@@ -175,13 +175,13 @@ def perf_grid(device_, ds, target, label_names, model, n_thresh=50):
 
 if __name__ =="__main__":
 
-    # src = "/media/sumit/Data/Workspace/SEW/dataset/blonde"
+    src = "Dataset"
     # change_file_name(src, dest_path=None)
-    # folders = [os.path.join(src, i) for i in os.listdir(src)]
+    folders = [os.path.join(src, i) for i in os.listdir(src) if not i.endswith('.csv') and not i.endswith('.DS_Store')]
     # # print(folders)
     # list(filter(lambda folds: change_file_name(folds, dest_path=folds), folders))
     # # change_file_name(
     #     src_folder="/media/sumit/Data/Workspace/SEW/dataset/balayage", dest_path=None,
     #     prefix="balayage")
 
-    validate_imgs()
+    list(filter(validate_imgs_folder, folders))
