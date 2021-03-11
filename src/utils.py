@@ -31,7 +31,7 @@ def change_file_name(src_folder:str, dest_path=None,prefix=None, ext='.jpg') -> 
         pbar = tqdm(os.listdir(src_folder))
 
         for id, i_file in enumerate(pbar):
-            file_name = prefix + '_'+str(id) + ext
+            file_name = 'nonbeauty_'+prefix + '_'+str(id) + ext
             src_file = os.path.join(src_folder, i_file)
             dstn_file = os.path.join(dest_path, file_name)
             move(src_file, dstn_file)
@@ -175,13 +175,13 @@ def perf_grid(device_, ds, target, label_names, model, n_thresh=50):
 
 if __name__ =="__main__":
 
-    src = "Dataset"
-    # change_file_name(src, dest_path=None)
-    folders = [os.path.join(src, i) for i in os.listdir(src) if not i.endswith('.csv') and not i.endswith('.DS_Store')]
+    src = "../Dataset/non_beauty/"
+    change_file_name(src, prefix='neg', dest_path=None)
+    # folders = [os.path.join(src, i) for i in os.listdir(src) if not i.endswith('.csv') and not i.endswith('.DS_Store')]
     # # print(folders)
-    # list(filter(lambda folds: change_file_name(folds, dest_path=folds), folders))
+    # list(filter(lambda folds: change_file_name(folds), folders))
     # # change_file_name(
     #     src_folder="/media/sumit/Data/Workspace/SEW/dataset/balayage", dest_path=None,
     #     prefix="balayage")
 
-    list(filter(validate_imgs_folder, folders))
+    # list(filter(validate_imgs_folder, folders))

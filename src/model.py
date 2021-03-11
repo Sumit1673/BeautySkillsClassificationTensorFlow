@@ -34,9 +34,12 @@ class BeautyModel:
         self.model = tf.keras.Sequential([
             self.pre_trained_model_layers,
             layers.Dense(1024, activation='relu', name='FCN1'),
-            layers.Dense(512, activation='relu', name='FCN2'),
+            layers.Dropout(0.2),
+            layers.Dense(1024, activation='relu', name='FCN2'),
+            layers.Dropout(0.2),
             layers.Dense(512, activation='relu', name='FCN3'),
-            layers.Dense(8, activation='sigmoid', name='Output')]
+            layers.Dropout(0.2),
+            layers.Dense(12, activation='softmax', name='Output')]
         )
         self.model.summary()
 

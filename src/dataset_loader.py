@@ -25,6 +25,12 @@ class BeautyDataLoader:
         # self.df = shuffle(self.df)
         self.df.set_index('id')
 
+        X_train,X_test,y_train,y_test = train_test_split(self.df.index, self.df.skill,test_size=0.2, random_state=42)
+        self.train_df = self.df.iloc[X_train] # return dataframe train
+        self.test_df = self.df.iloc[X_test]
+
+        self.test_df.to_csv('../Dataset/test.csv')
+
         # self.train_test_split()
         if multi_label:
             self.startified_splits_multi_label()
@@ -75,18 +81,18 @@ class BeautyDataLoader:
             n_splits=1, test_size=0.2, random_state=42
             )
 
-        data = self.df['file_path']
-        labels = self.df['skill']
+        data = self.train_df['file_path']
+        labels = self.train_df['skill']
         for train_index, test_index in skf.split(data, labels):
             
             self.dataset_split['train_X'].append([data[d] for d in train_index if d in data][:])
             self.dataset_split['valid_X'].append([data[d] for d in test_index if d in data][:])
             
             self.dataset_split['train_y'].append([
-                [self.df['skill'][d]] for d in train_index if d in labels][:])
+                [self.train_df['skill'][d]] for d in train_index if d in labels][:])
 
             self.dataset_split['valid_y'].append(
-               [self.df['skill'][d] for d in test_index if d in labels][:])            
+               [self.train_df['skill'][d] for d in test_index if d in labels][:])            
             
         # print(self.dataset_split)
     

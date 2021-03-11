@@ -4,7 +4,7 @@ from create_labels import *
 from trainer import *
 
 
-def dataset_creation(config, multi_label=False, src_folder='Dataset/'):
+def dataset_creation(config, multi_label=False, src_folder='../Dataset/'):
     dataset_csv = config.dataset_path
     with open(dataset_csv, 'a') as csv_file:
 
@@ -25,20 +25,19 @@ def dataset_creation(config, multi_label=False, src_folder='Dataset/'):
 
 
 def main(config):
-    multi_label = False
-    if not os.path.exists(config.dataset_path):
-        with open(config.dataset_path, 'a') as csv_file:
-            writer = csv.writer(csv_file, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    # multi_label = False
+    # if not os.path.exists(config.dataset_path):
+    #     with open(config.dataset_path, 'a') as csv_file:
+    #         writer = csv.writer(csv_file, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
-            if multi_label:
-                writer.writerow(['file_path', 'isbeauty', 'skill'])
-            else:
-                writer.writerow(['file_path', 'skill'])
+    #         if multi_label:
+    #             writer.writerow(['file_path', 'isbeauty', 'skill'])
+    #         else:
+    #             writer.writerow(['file_path', 'skill'])
 
-    dataset_creation(config, multi_label=multi_label)
+    # dataset_creation(config, multi_label=multi_label)
     trainer = TrainModel()
 
     model = trainer.train()
-
 config,_ = config.get_config()
 main(config)

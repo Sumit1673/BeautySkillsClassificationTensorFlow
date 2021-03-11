@@ -44,17 +44,17 @@ class Inferencing:
 
         from keras.preprocessing import image
 
-        org_dataset = pd.read_csv('Dataset/beauty_dataset.csv')
+        org_dataset = pd.read_csv('../Dataset/test.csv')
         
-        # Get movie info
-        nrows = 5
-        ncols = 2
+        
+        nrows = 10
+        ncols = 10
         fig = plt.gcf()
         fig.set_size_inches(ncols * 10, nrows * 10)
         # print(filenames)
         for i, img_path in enumerate(filenames): 
-            gt = org_dataset.loc[org_dataset['file_path'] == img_path, ['isbeauty', 'skill']].iloc[0]
-            k,l = gt
+            gt = org_dataset.loc[org_dataset['file_path'] == img_path, ['skill']].iloc[0]
+            
         # Read and prepare image
             img = image.load_img(img_path, target_size=(IMG_SIZE,IMG_SIZE,CHANNELS))
             img = image.img_to_array(img)
@@ -82,20 +82,22 @@ class Inferencing:
             sp.axis('Off') # Don't show axes (or gridlines)
             plt.imshow(Image.open(img_path))
             file_ = os.path.basename(img_path)
-            plt.title('\n\n{}\n\GT\n{}\n\nPrediction\n{}\n'.format(file_, (k,l), list(prediction)), fontsize=9)
+            plt.title('\n\n{}\n\GT\n{}\n\nPrediction\n{}\n'.format(file_, (gt), list(prediction)), fontsize=9)
 
         plt.savefig('./logs/predictions.png')
 
 
 if __name__ == "__main__":
 
+    dataloader = BeautyDataLoader()
+    label_names = dataloader.get_label_names()
     
-    inference = Inferencing(device_='/gpu:0',model_path='./ckpt/20210226-130849/0/')
+    inference = Inferencing(device_='/gpu:0',model_path='./ckpt/20210311-163850/0/')
     print(inference.model.summary())
-    df, labels = inference.create_confusion_matrix(inference.model)
+    # df, labels = inference.create_confusion_matrix(inference.model)
 
-    org_dataset = pd.read_csv('Dataset/beauty_dataset.csv')
-
+    test_dataset = pd.read_csv('../Dataset/test.csv', nrows=50)
+    files = test_dataset['file_path']
     # print(df.head(10))
 
     sample_test_files = [
@@ -114,6 +116,6 @@ if __name__ == "__main__":
     #     k, l = org_dataset.loc[org_dataset['file_path'] == i, ['isbeauty', 'skill']].iloc[0]
     # dataloader = BeautyDataLoader()
     # label_names = dataloader.get_label_names()
-    # inference.get_predictions(sample_test_files, label_names, inference.model)
+    inference.get_predictions(files, label_names, inference.model)
 
     

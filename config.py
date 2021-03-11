@@ -20,7 +20,7 @@ data_arg = add_argument_group("Data Params")
 data_arg.add_argument(
     "--dataset_path",
     type=str,
-    default="Dataset/beauty_dataset.csv",
+    default="../Dataset/beauty_dataset.csv",
     help="Proportion of training set used for validation",
 )
 
@@ -98,7 +98,7 @@ train_arg.add_argument(
 
 train_arg.add_argument(
     "--model_url", type=str,
-    default="https://tfhub.dev/google/imagenet/mobilenet_v2_100_224/feature_vector/4",
+    default="https://tfhub.dev/google/imagenet/inception_v1/classification/4",
     help="Link to download a pre-trained model. Default is MobileNet_V2"
 )
 train_arg.add_argument(

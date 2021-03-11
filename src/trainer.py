@@ -44,9 +44,9 @@ class TrainModel:
         
 
         self.model.compile(
-              optimizer=tf.keras.optimizers.Adam(lr=0.0001),
-              loss=tf.keras.metrics.binary_crossentropy,
-              metrics=[self.macro_f1]
+              optimizer=tf.keras.optimizers.RMSprop(lr=0.0001),
+              loss='categorical_crossentropy',
+              metrics=['accuracy']
               )
         
         for k in range(0, 1):
